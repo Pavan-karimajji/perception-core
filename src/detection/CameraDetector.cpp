@@ -1,0 +1,15 @@
+#include "CameraDetector.hpp"
+
+namespace adas { namespace perception {
+
+DetectionList CameraDetector::detect(const adas::isp::ProcessedFrame& frame) {
+    DetectionList result;
+    // TODO: Implement actual detection
+    // 1. Preprocess frame
+    // 2. Run DNN inference (ONNX/TensorRT)
+    // 3. Post-process: NMS, thresholding
+    // 4. Populate DetectionList
+    return result;
+}
+
+}} // namespace adas::perception
