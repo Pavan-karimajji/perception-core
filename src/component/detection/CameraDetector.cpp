@@ -1,3 +1,4 @@
+﻿#include "proto_stubs.hpp"
 #include "CameraDetector.hpp"
 
 namespace adas { namespace perception {
@@ -13,3 +14,4 @@ DetectionList CameraDetector::detect(const adas::isp::ProcessedFrame& frame) {
 }
 
 }} // namespace adas::perception
+

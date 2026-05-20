@@ -1,3 +1,4 @@
+﻿#include "proto_stubs.hpp"
 #include "MultiObjectTracker.hpp"
 
 namespace adas { namespace perception {
@@ -18,3 +19,4 @@ void MultiObjectTracker::reset() {
 }
 
 }} // namespace adas::perception
+

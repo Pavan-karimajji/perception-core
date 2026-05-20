@@ -1,0 +1,2 @@
+﻿add_library(perception_core_sil STATIC perception_core_node.cpp)
+target_link_libraries(perception_core_sil PUBLIC perception_core)

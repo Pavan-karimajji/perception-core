@@ -1,4 +1,4 @@
-# Perception Core CI Pipeline
+﻿# Perception Core CI Pipeline
 stages:
   - static_analysis
   - build
@@ -7,14 +7,15 @@ stages:
 static_analysis:
   stage: static_analysis
   script:
-    - cppcheck --enable=all src/
-    # - clang-tidy src/**/*.cpp
+    - cppcheck --enable=all src/component
+    # - clang-tidy src/component/**/*.cpp
 
 build_sil:
   stage: build
   script:
     - mkdir build && cd build
-    - cmake .. -DTARGET_TYPE=sil -DBUILD_TESTING=ON
+    # AdasInterfaces_DIR must point at interfaces/cmake (sibling clone or submodule path)
+    - cmake .. -DTARGET_TYPE=sil -DBUILD_TESTING=ON -DAdasInterfaces_DIR=../interfaces/cmake
     - make -j$(nproc)
 
 unit_tests:

@@ -1,0 +1,2 @@
+﻿add_library(perception_core_autosar STATIC perception_core_service.cpp)
+target_link_libraries(perception_core_autosar PUBLIC perception_core)

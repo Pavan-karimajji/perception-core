@@ -1,0 +1,2 @@
+﻿add_executable(perception_standalone main.cpp)
+target_link_libraries(perception_standalone PRIVATE perception_core)

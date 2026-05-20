@@ -1,34 +1,24 @@
-cmake_minimum_required(VERSION 3.22)
+﻿cmake_minimum_required(VERSION 3.22)
 project(adas-perception-core VERSION 0.1.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 
-# Find shared interfaces
-find_package(AdasInterfaces REQUIRED)
-
-# Algo library (pure C++, no middleware)
-add_library(perception_core
-    src/detection/CameraDetector.cpp
-    src/tracking/MultiObjectTracker.cpp
-    # src/classification/ObjectClassifier.cpp
-    # src/free_space/FreeSpaceDetector.cpp
-)
-target_include_directories(perception_core PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
-    ${CMAKE_CURRENT_SOURCE_DIR}/include
-)
-target_link_libraries(perception_core PUBLIC AdasInterfaces::AdasInterfaces)
-
-# Select adapter based on target
-if(TARGET_TYPE STREQUAL "sil")
-    # add_subdirectory(adapters/ros2)
-elseif(TARGET_TYPE STREQUAL "autosar")
-    # add_subdirectory(adapters/autosar)
-elseif(TARGET_TYPE STREQUAL "standalone")
-    # add_subdirectory(adapters/standalone)
+if(NOT DEFINED TARGET_TYPE)
+    set(TARGET_TYPE sil CACHE STRING "Build target: sil, standalone, autosar")
 endif()
 
-# Tests
+find_package(AdasInterfaces REQUIRED)
+
+add_subdirectory(src/component)
+
+if(TARGET_TYPE STREQUAL "sil")
+    add_subdirectory(src/platform/sil)
+elseif(TARGET_TYPE STREQUAL "autosar")
+    add_subdirectory(src/platform/autosar)
+elseif(TARGET_TYPE STREQUAL "standalone")
+    add_subdirectory(src/platform/standalone)
+endif()
+
 if(BUILD_TESTING)
     # add_subdirectory(tests/unit)
 endif()

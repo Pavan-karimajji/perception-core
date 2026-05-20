@@ -1,28 +1,33 @@
-# adas-perception-core
+﻿# adas-perception-core
 
 Camera perception pipeline: object detection, classification, tracking, free space.
 
 ## Build
 
 ```bash
-# Standalone SIL build
-git submodule update --init   # pulls adas-interfaces
+git submodule update --init
 mkdir build && cd build
-cmake .. -DTARGET_TYPE=sil -DBUILD_TESTING=ON
-make -j$(nproc)
+cmake .. -DTARGET_TYPE=sil -DBUILD_TESTING=ON -DAdasInterfaces_DIR=../interfaces/cmake
+cmake --build .
 ctest
 ```
 
-## Structure
-- `src/detection/` — Object detection (ML-based)
-- `src/classification/` — Object classification
-- `src/tracking/` — Multi-object tracking (Kalman + Hungarian)
-- `src/free_space/` — Free space detection
-- `adapters/` — Middleware wrappers (ros2, autosar, standalone)
+When using the 1v-superproject checkout, `AdasInterfaces_DIR` is usually `../../interfaces/cmake` from `modules/perception-core/build`.
+
+## Layout
+
+- `src/component/` — Middleware-agnostic algorithm code (detection, tracking, …)
+- `src/platform/sil/` — SIL (ROS2) node wrappers
+- `src/platform/standalone/` — File-based executables for bring-up
+- `src/platform/autosar/` — Adaptive AUTOSAR service adapters
+- `src/platform/tda4vm/`, `src/platform/orin/` — SoC placeholders (see README in each)
+- `src/project/` — Project-specific configs, feature macros, calibration overrides (see README)
+- `include/` — Component-internal headers
 - `tests/` — Unit and integration tests
 - `config/` — Default configuration YAML
 
 ## Interfaces implemented
-- `IObjectDetector` — from adas-interfaces
-- `IObjectTracker` — from adas-interfaces
-- `IFreeSpaceDetector` — from adas-interfaces
+
+- `IObjectDetector` — from interfaces
+- `IObjectTracker` — from interfaces
+- `IFreeSpaceDetector` — from interfaces
