@@ -31,3 +31,12 @@ When using the 1v-superproject checkout, `AdasInterfaces_DIR` is usually `../../
 - `IObjectDetector` — from interfaces
 - `IObjectTracker` — from interfaces
 - `IFreeSpaceDetector` — from interfaces
+
+## Windows quick build
+
+From this directory (Git Bash or `cmd`):
+
+- `build_sil.bat` — `TARGET_TYPE=sil` → `build-sil/`
+- `build_standalone.bat` — `TARGET_TYPE=standalone` → `build-standalone/` and `perception_standalone.exe`
+
+Scripts resolve `AdasInterfaces_DIR` automatically for superproject (`modules/interfaces`) or a sibling `interfaces` clone.

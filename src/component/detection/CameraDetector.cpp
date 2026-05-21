@@ -1,5 +1,6 @@
 ﻿#include "proto_stubs.hpp"
 #include "CameraDetector.hpp"
+#include "iostream"
 
 namespace adas { namespace perception {
 
@@ -10,6 +11,7 @@ DetectionList CameraDetector::detect(const adas::isp::ProcessedFrame& frame) {
     // 2. Run DNN inference (ONNX/TensorRT)
     // 3. Post-process: NMS, thresholding
     // 4. Populate DetectionList
+    std::cout << "CameraDetector: Detecting objects in frame " << std::endl;
     return result;
 }
 
