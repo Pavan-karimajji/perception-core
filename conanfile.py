@@ -1,10 +1,11 @@
 from conan import ConanFile
 from conan.tools.cmake import CMakeDeps, CMakeToolchain
+from pathlib import Path
+import re
 
 
 class PerceptionCoreConan(ConanFile):
-    name = "adas-perception-core-deps"
-    version = "0.1.0"
+    name = "adas-perception-core"
     package_type = "application"
 
     settings = "os", "arch", "compiler", "build_type"
@@ -15,6 +16,14 @@ class PerceptionCoreConan(ConanFile):
         "protobuf/*:shared": False,
         "protobuf/*:with_zlib": False,
     }
+
+    def set_version(self):
+        cmakelists = Path(self.recipe_folder) / "CMakeLists.txt"
+        content = cmakelists.read_text(encoding="utf-8")
+        match = re.search(r"project\(\s*adas-perception-core\s+VERSION\s+([0-9]+\.[0-9]+\.[0-9]+)", content, re.IGNORECASE)
+        if not match:
+            raise RuntimeError("Could not extract VERSION from CMakeLists.txt")
+        self.version = match.group(1)
 
     def generate(self):
         tc = CMakeToolchain(self)

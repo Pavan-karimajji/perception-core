@@ -36,7 +36,8 @@ When using the 1v-superproject checkout, `AdasInterfaces_DIR` is usually `../../
 
 From this directory (Git Bash or `cmd`):
 
-- `build_sil.bat` — `TARGET_TYPE=sil` → `build-sil/`
-- `build_standalone.bat` — `TARGET_TYPE=standalone` → `build-standalone/` and `perception_standalone.exe`
+- `build.bat standalone` — standalone build + `perception_standalone.exe`
+- `build.bat sil` — SIL build
+- `build.bat gtest` — unit test build + ctest run
 
-Scripts resolve `AdasInterfaces_DIR` automatically for superproject (`modules/interfaces`) or a sibling `interfaces` clone.
+All commands use Conan + CMake presets (`*-release` build folders).

@@ -1,0 +1,82 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 22,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "base-release",
+      "displayName": "Base Release",
+      "generator": "Visual Studio 17 2022",
+      "architecture": "x64",
+      "toolset": "v143",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/build-${presetName}/conan_toolchain.cmake",
+        "CMAKE_POLICY_DEFAULT_CMP0091": "NEW",
+        "AdasInterfaces_DIR": "${sourceDir}/../interfaces/cmake"
+      }
+    },
+    {
+      "name": "standalone-release",
+      "displayName": "Standalone Release",
+      "inherits": "base-release",
+      "binaryDir": "${sourceDir}/build-standalone-release",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/build-standalone-release/conan_toolchain.cmake",
+        "TARGET_TYPE": "standalone",
+        "BUILD_TESTING": "OFF"
+      }
+    },
+    {
+      "name": "sil-release",
+      "displayName": "SIL Release",
+      "inherits": "base-release",
+      "binaryDir": "${sourceDir}/build-sil-release",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/build-sil-release/conan_toolchain.cmake",
+        "TARGET_TYPE": "sil",
+        "BUILD_TESTING": "OFF"
+      }
+    },
+    {
+      "name": "gtest-release",
+      "displayName": "GTest Release",
+      "inherits": "base-release",
+      "binaryDir": "${sourceDir}/build-gtest-release",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/build-gtest-release/conan_toolchain.cmake",
+        "TARGET_TYPE": "sil",
+        "BUILD_TESTING": "ON"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "standalone-release",
+      "configurePreset": "standalone-release",
+      "configuration": "Release"
+    },
+    {
+      "name": "sil-release",
+      "configurePreset": "sil-release",
+      "configuration": "Release"
+    },
+    {
+      "name": "gtest-release",
+      "configurePreset": "gtest-release",
+      "configuration": "Release"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "gtest-release",
+      "configurePreset": "gtest-release",
+      "configuration": "Release",
+      "output": {
+        "outputOnFailure": true
+      }
+    }
+  ]
+}
