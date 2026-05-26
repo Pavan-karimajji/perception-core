@@ -1,6 +1,8 @@
 #include <iostream>
 #include <memory>
-#include "proto_stubs.hpp"
+#include "isp/frame.pb.h"
+#include "perception/track.pb.h"
+#include "perception/free_space.pb.h"
 #include "detection/CameraDetector.hpp"
 #include "tracking/MultiObjectTracker.hpp"
 #include "free_space/FreeSpaceDetector.hpp"

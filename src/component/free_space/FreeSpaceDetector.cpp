@@ -1,5 +1,6 @@
-#include "proto_stubs.hpp"
 #include "FreeSpaceDetector.hpp"
+#include "isp/frame.pb.h"
+#include "perception/free_space.pb.h"
 #include "iostream"
 
 namespace adas { namespace perception {

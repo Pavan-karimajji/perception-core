@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
-#include "proto_stubs.hpp"
+#include "perception/detection.pb.h"
+#include "perception/track.pb.h"
 #include "tracking/MultiObjectTracker.hpp"
 
 TEST(MultiObjectTrackerTest, EmptyDetectionsReturnsEmptyTracks) {

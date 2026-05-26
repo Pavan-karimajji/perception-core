@@ -1,5 +1,6 @@
 #pragma once
 #include "perception/IObjectDetector.hpp"
+#include "perception/detection.pb.h"
 
 namespace adas { namespace perception {
 
