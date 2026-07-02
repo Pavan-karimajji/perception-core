@@ -29,6 +29,16 @@ if errorlevel 1 (
   exit /b 1
 )
 
+if exist "%USERPROFILE%\.conan2\profiles\default" (
+  findstr /b /c:"compiler=" "%USERPROFILE%\.conan2\profiles\default" >nul 2>&1
+  if errorlevel 1 (
+    echo WARNING: No C++ compiler entry found in the Conan default profile.
+    echo If Visual Studio is already installed, this may just be a stale
+    echo profile - continuing anyway. The conan install step below will
+    echo report the real error if a toolchain genuinely cannot be found.
+  )
+)
+
 if /I "%CLEAN%"=="clean" (
   echo Cleaning %BUILD_DIR% ...
   if exist "%BUILD_DIR%" rmdir /s /q "%BUILD_DIR%"

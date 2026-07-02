@@ -9,9 +9,9 @@
     {
       "name": "base-release",
       "displayName": "Base Release",
-      "generator": "Visual Studio 17 2022",
+      "generator": "Visual Studio 18 2026",
       "architecture": "x64",
-      "toolset": "v143",
+      "toolset": "v145",
       "cacheVariables": {
         "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/build-${presetName}/conan_toolchain.cmake",
         "CMAKE_POLICY_DEFAULT_CMP0091": "NEW",
