@@ -8,7 +8,7 @@ public:
     MultiObjectTracker() = default;
     ~MultiObjectTracker() override = default;
 
-    TrackList update(const DetectionList& detections) override;
+    GenObjectList update(const DetectionList& detections) override;
     void reset() override;
 
 private:

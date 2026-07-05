@@ -1,7 +1,7 @@
 #include <iostream>
 #include <memory>
 #include "isp/frame.pb.h"
-#include "perception/track.pb.h"
+#include "perception/object.pb.h"
 #include "perception/free_space.pb.h"
 #include "detection/CameraDetector.hpp"
 #include "tracking/MultiObjectTracker.hpp"
@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
     std::cout << "[Pipeline] Injecting dummy frame..." << std::endl;
 
     auto detections = detector->detect(dummy_frame);
-    auto tracks = tracker->update(detections);
+    auto objects = tracker->update(detections);
     auto free_space = free_space_detector->detect_free_space(dummy_frame);
 
     std::cout << "[Pipeline] Pipeline step execution completed successfully." << std::endl;

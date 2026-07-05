@@ -44,11 +44,11 @@ public:
         
         // Run pipeline components
         auto detections = detector_->detect(frame);
-        auto tracks = tracker_->update(detections);
+        auto objects = tracker_->update(detections);
         auto free_space = free_space_detector_->detect_free_space(frame);
 
         // Publish outputs
-        publish_outputs(detections, tracks, free_space);
+        publish_outputs(detections, objects, free_space);
     }
 
 private:
@@ -57,14 +57,14 @@ private:
         // subscription_ = this->create_subscription<...>(
         //     "/processed_frame", 10, std::bind(&PerceptionCoreNode::on_frame_received, this, std::placeholders::_1));
         // detections_pub_ = this->create_publisher<...>("/detections", 10);
-        // tracks_pub_ = this->create_publisher<...>("/tracks", 10);
+        // objects_pub_ = this->create_publisher<...>("/objects", 10);
         // free_space_pub_ = this->create_publisher<...>("/free_space", 10);
         std::cout << "PerceptionCoreNode (SIL): Subscribers & publishers set up." << std::endl;
     }
 
-    void publish_outputs(const DetectionList& detections, const TrackList& tracks, const FreeSpaceContour& free_space) {
+    void publish_outputs(const DetectionList& detections, const GenObjectList& objects, const FreeSpaceContour& free_space) {
         // TODO: Publish messages to ROS2 topics
-        std::cout << "PerceptionCoreNode (SIL): Publishing detections, tracks, and free space" << std::endl;
+        std::cout << "PerceptionCoreNode (SIL): Publishing detections, objects, and free space" << std::endl;
     }
 
     std::unique_ptr<CameraDetector> detector_;
