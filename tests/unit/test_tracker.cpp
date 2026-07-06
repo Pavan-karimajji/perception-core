@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include "perception/detection.pb.h"
-#include "perception/object.pb.h"
+#include "PerceptionCore__Outputs/gen_object_list.pb.h"
 #include "tracking/MultiObjectTracker.hpp"
 
 TEST(MultiObjectTrackerTest, EmptyDetectionsReturnsEmptyObjectList) {

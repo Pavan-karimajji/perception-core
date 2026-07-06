@@ -1,7 +1,7 @@
 #include <iostream>
 #include <memory>
 #include "isp/frame.pb.h"
-#include "perception/object.pb.h"
+#include "PerceptionCore__Outputs/gen_object_list.pb.h"
 #include "perception/free_space.pb.h"
 #include "detection/CameraDetector.hpp"
 #include "tracking/MultiObjectTracker.hpp"

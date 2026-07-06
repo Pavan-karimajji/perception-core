@@ -1,5 +1,5 @@
 #include "perception/detection.pb.h"
-#include "perception/object.pb.h"
+#include "PerceptionCore__Outputs/gen_object_list.pb.h"
 #include "MultiObjectTracker.hpp"
 
 namespace adas { namespace perception {
