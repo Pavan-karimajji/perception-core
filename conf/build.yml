@@ -19,8 +19,15 @@
 # variant. build.bat's existing `standalone`/`sil`/`gtest` targets are
 # unaffected by this.
 #
-# uses: is documentation only, not yet mechanically consumed by anything -
-# see modules/functions/conf/build.yml for why.
+# requires:/tool_requires: below ARE mechanically consumed - see
+# modules/functions/conf/build.yml for the full explanation
+# (docs/conan_requires_in_build_yml.md).
+
+requires:
+  - protobuf/3.21.12
+  - adas-interfaces/1.0.0
+tool_requires:
+  - protobuf/3.21.12
 
 variants:
   base:
@@ -31,10 +38,7 @@ variants:
         #                            #    exists yet in CMakePresets.json
         # - build: aarch64_qcc_qnx   # <- illustrative only: needs its own
         #                            #    build.bat target + toolchain file
-        #                            #    first (plan.md item 7)
-      uses:
-        adas-interfaces:
-          release: 1.0.0
+        #                            #    first (plan.md item 6)
       # production:                  # <- added once plan.md's QNX/Orin/TDA4VM
       #   platforms:                 #    item exists; same file, new part key
       #     - build: aarch64_qcc_qnx
@@ -42,6 +46,3 @@ variants:
     sil:
       platforms:
         - build: vs2022
-      uses:
-        adas-interfaces:
-          release: 1.0.0
