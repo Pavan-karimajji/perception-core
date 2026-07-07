@@ -9,7 +9,7 @@ class PerceptionCoreConan(ConanFile):
     package_type = "application"
 
     settings = "os", "arch", "compiler", "build_type"
-    requires = ("protobuf/3.21.12",)
+    requires = ("protobuf/3.21.12", "adas-interfaces/1.0.0")
     tool_requires = ("protobuf/3.21.12",)
 
     default_options = {

@@ -9,9 +9,12 @@
 # Mirrors modules/functions/conf/build.yml's shape exactly - see
 # docs/project_variant_model.md for the full model and rationale.
 #
-# Consumed by build.py (plan.md item 1) to resolve which platform/build.bat
-# target to invoke for a given project+part. build.bat's existing
-# `standalone`/`sil`/`gtest` targets are unaffected by this file.
+# platforms: is consumed by build.py (superproject dispatcher) to resolve
+# which platform/build.bat target to invoke for a given project+part.
+# build.bat's existing `standalone`/`sil`/`gtest` targets are unaffected.
+#
+# uses: is documentation only, not yet mechanically consumed by anything -
+# see modules/functions/conf/build.yml for why.
 
 variants:
   base:
@@ -21,6 +24,9 @@ variants:
         # - build: aarch64_qcc_qnx   # <- illustrative only: needs its own
         #                            #    build.bat target + toolchain file
         #                            #    first (plan.md item 8)
+      uses:
+        adas-interfaces:
+          release: 1.0.0
       # production:                  # <- added once plan.md's QNX/Orin/TDA4VM
       #   platforms:                 #    item exists; same file, new part key
       #     - build: aarch64_qcc_qnx
@@ -28,3 +34,6 @@ variants:
     sil:
       platforms:
         - build: x86_64_gcc
+      uses:
+        adas-interfaces:
+          release: 1.0.0
