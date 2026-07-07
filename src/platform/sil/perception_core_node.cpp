@@ -1,7 +1,19 @@
 #include <iostream>
 #include <memory>
 #include <vector>
-#include "proto_stubs.hpp"
+// Real generated types - matches exactly what CameraDetector/MultiObjectTracker/
+// FreeSpaceDetector's own .cpp files already include. This file used to include
+// interfaces' proto_stubs.hpp instead (a placeholder struct GenObjectList {}/
+// FreeSpaceContour {}/ProcessedFrame {}, predating these being wired to real
+// protobuf types) - a struct-vs-class mismatch against the real classes below,
+// invisible until something actually linked this file into a full executable
+// (sil_host, plan.md item 2) and hit LNK2001 on detect()/update()/
+// detect_free_space(). No .proto file touched - proto_stubs.hpp is a plain
+// C++ header, not a schema.
+#include "isp/frame.pb.h"
+#include "perception/detection.pb.h"
+#include "PerceptionCore__Outputs/gen_object_list.pb.h"
+#include "perception/free_space.pb.h"
 #include "detection/CameraDetector.hpp"
 #include "tracking/MultiObjectTracker.hpp"
 #include "free_space/FreeSpaceDetector.hpp"

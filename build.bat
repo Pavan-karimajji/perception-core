@@ -3,25 +3,29 @@ setlocal EnableExtensions
 cd /d "%~dp0"
 
 if "%~1"=="" goto :usage
-set "TARGET=%~1"
-set "CLEAN=%~2"
+if "%~2"=="" goto :usage
+if "%~3"=="" goto :usage
+set "PROJECT=%~1"
+set "TARGET=%~2"
+set "PLATFORM=%~3"
+REM PROJECT is accepted (not just tolerated) to keep the same <project> <part>
+REM <platform> [clean] entry-point shape build.py calls every component with -
+REM see modules/functions/build.bat. perception-core has no project-scoped
+REM calibration data of its own yet, so it is accepted and otherwise unused.
+set "CLEAN=%~4"
 
-if /I "%TARGET%"=="standalone" (
-  set "CFG_PRESET=standalone-release"
-  set "BLD_PRESET=standalone-release"
-  set "BUILD_DIR=%~dp0build-standalone-release"
-) else if /I "%TARGET%"=="sil" (
-  set "CFG_PRESET=sil-release"
-  set "BLD_PRESET=sil-release"
-  set "BUILD_DIR=%~dp0build-sil-release"
-) else if /I "%TARGET%"=="gtest" (
-  set "CFG_PRESET=gtest-release"
-  set "BLD_PRESET=gtest-release"
-  set "BUILD_DIR=%~dp0build-gtest-release"
-) else (
+if /I not "%TARGET%"=="standalone" if /I not "%TARGET%"=="sil" if /I not "%TARGET%"=="gtest" (
   echo ERROR: Unknown target "%TARGET%"
   goto :usage
 )
+
+set "CFG_PRESET=%TARGET%-%PLATFORM%"
+set "BLD_PRESET=%TARGET%-%PLATFORM%"
+set "BUILD_DIR=%~dp0build-%TARGET%-%PLATFORM%"
+
+set "BUILD_TYPE=Release"
+echo %PLATFORM%| findstr /e /c:"_debug" >nul 2>&1
+if not errorlevel 1 set "BUILD_TYPE=Debug"
 
 where conan >nul 2>&1
 if errorlevel 1 (
@@ -45,7 +49,7 @@ if /I "%CLEAN%"=="clean" (
 )
 
 echo Installing Conan dependencies...
-conan install . --output-folder "%BUILD_DIR%" --build=missing -s build_type=Release
+conan install . --output-folder "%BUILD_DIR%" --build=missing -s build_type=%BUILD_TYPE%
 if errorlevel 1 exit /b 1
 
 echo Configuring preset %CFG_PRESET% ...
@@ -58,14 +62,16 @@ if errorlevel 1 exit /b 1
 
 if /I "%TARGET%"=="gtest" (
   echo Running tests...
-  ctest --preset gtest-release
+  ctest --preset %BLD_PRESET%
   if errorlevel 1 exit /b 1
 )
 
 echo.
-echo Build finished for target: %TARGET%
+echo Build finished for target: %TARGET% (platform: %PLATFORM%)
 exit /b 0
 
 :usage
-echo Usage: build.bat ^<standalone^|sil^|gtest^> [clean]
+echo Usage: build.bat ^<project^> ^<standalone^|sil^|gtest^> ^<platform^> [clean]
+echo   e.g. build.bat base sil vs2022
+echo        build.bat base gtest vs2022
 exit /b 1

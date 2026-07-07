@@ -10,8 +10,14 @@
 # docs/project_variant_model.md for the full model and rationale.
 #
 # platforms: is consumed by build.py (superproject dispatcher) to resolve
-# which platform/build.bat target to invoke for a given project+part.
-# build.bat's existing `standalone`/`sil`/`gtest` targets are unaffected.
+# which platform to build with, and is now passed straight through as
+# build.bat's second argument (build.bat <part> <platform>) - it drives the
+# actual CMake preset name (<part>-<platform>), not just a log line.
+# Platform token = compiler+arch+config as ONE string (matches a proven
+# external reference's own convention): bare name (vs2022) is the default
+# config, a trailing _debug suffix (vs2022_debug) is the explicit debug
+# variant. build.bat's existing `standalone`/`sil`/`gtest` targets are
+# unaffected by this.
 #
 # uses: is documentation only, not yet mechanically consumed by anything -
 # see modules/functions/conf/build.yml for why.
@@ -20,7 +26,9 @@ variants:
   base:
     sil:
       platforms:
-        - build: x86_64_gcc
+        - build: vs2022
+        # - build: vs2022_debug      # <- illustrative only: no debug preset
+        #                            #    exists yet in CMakePresets.json
         # - build: aarch64_qcc_qnx   # <- illustrative only: needs its own
         #                            #    build.bat target + toolchain file
         #                            #    first (plan.md item 8)
@@ -33,7 +41,7 @@ variants:
   proj_alpha:
     sil:
       platforms:
-        - build: x86_64_gcc
+        - build: vs2022
       uses:
         adas-interfaces:
           release: 1.0.0
