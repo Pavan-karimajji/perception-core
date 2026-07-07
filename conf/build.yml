@@ -1,0 +1,30 @@
+# Per-project x per-part toolchain/platform mapping for this component.
+#
+# Two other axes are resolved elsewhere, not here:
+#   - project  (which calibration numbers: projects/<name>/default.yaml)   -> superproject variants/<project>.yaml
+#   - part     (which kind of deliverable: sil, later production/doc)     -> superproject variants/<project>.yaml
+# This file only answers, for a given project+part already chosen upstream,
+# which of *this component's own* toolchain presets to build with.
+#
+# Mirrors modules/functions/conf/build.yml's shape exactly - see
+# docs/project_variant_model.md for the full model and rationale.
+#
+# Consumed by build.py (plan.md item 1) to resolve which platform/build.bat
+# target to invoke for a given project+part. build.bat's existing
+# `standalone`/`sil`/`gtest` targets are unaffected by this file.
+
+variants:
+  base:
+    sil:
+      platforms:
+        - build: x86_64_gcc
+        # - build: aarch64_qcc_qnx   # <- illustrative only: needs its own
+        #                            #    build.bat target + toolchain file
+        #                            #    first (plan.md item 8)
+      # production:                  # <- added once plan.md's QNX/Orin/TDA4VM
+      #   platforms:                 #    item exists; same file, new part key
+      #     - build: aarch64_qcc_qnx
+  proj_alpha:
+    sil:
+      platforms:
+        - build: x86_64_gcc
