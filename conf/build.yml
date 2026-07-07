@@ -19,18 +19,18 @@
 # variant. build.bat's existing `standalone`/`sil`/`gtest` targets are
 # unaffected by this.
 #
-# requires:/tool_requires: below ARE mechanically consumed - see
-# modules/functions/conf/build.yml for the full explanation
-# (docs/conan_requires_in_build_yml.md).
-
-requires:
-  - protobuf/3.21.12
-  - adas-interfaces/1.0.0
-tool_requires:
-  - protobuf/3.21.12
+# requires:/tool_requires: below ARE mechanically consumed - nested under
+# variants/<project> only (not further per-part - see
+# modules/functions/conf/build.yml for why) - see that same file for the full
+# explanation (docs/conan_requires_in_build_yml.md).
 
 variants:
   base:
+    requires:
+      - protobuf/3.21.12
+      - adas-interfaces/1.0.0
+    tool_requires:
+      - protobuf/3.21.12
     sil:
       platforms:
         - build: vs2022
@@ -43,6 +43,11 @@ variants:
       #   platforms:                 #    item exists; same file, new part key
       #     - build: aarch64_qcc_qnx
   proj_alpha:
+    requires:
+      - protobuf/3.21.12
+      - adas-interfaces/1.0.0
+    tool_requires:
+      - protobuf/3.21.12
     sil:
       platforms:
         - build: vs2022
