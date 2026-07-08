@@ -14,8 +14,8 @@
 # build.bat's second argument (build.bat <part> <platform>) - it drives the
 # actual CMake preset name (<part>-<platform>), not just a log line.
 # Platform token = compiler+arch+config as ONE string (matches a proven
-# external reference's own convention): bare name (vs2022) is the default
-# config, a trailing _debug suffix (vs2022_debug) is the explicit debug
+# external reference's own convention): bare name (vs2026) is the default
+# config, a trailing _debug suffix (vs2026_debug) is the explicit debug
 # variant. build.bat's existing `standalone`/`sil`/`gtest` targets are
 # unaffected by this.
 #
@@ -33,8 +33,8 @@ variants:
       - protobuf/3.21.12
     sil:
       platforms:
-        - build: vs2022
-        # - build: vs2022_debug      # <- illustrative only: no debug preset
+        - build: vs2026
+        # - build: vs2026_debug      # <- illustrative only: no debug preset
         #                            #    exists yet in CMakePresets.json
         # - build: aarch64_qcc_qnx   # <- illustrative only: needs its own
         #                            #    build.bat target + toolchain file
@@ -50,4 +50,4 @@ variants:
       - protobuf/3.21.12
     sil:
       platforms:
-        - build: vs2022
+        - build: vs2026

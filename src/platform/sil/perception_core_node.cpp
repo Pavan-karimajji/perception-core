@@ -7,7 +7,7 @@
 // FreeSpaceContour {}/ProcessedFrame {}, predating these being wired to real
 // protobuf types) - a struct-vs-class mismatch against the real classes below,
 // invisible until something actually linked this file into a full executable
-// (sil_host, plan.md item 2) and hit LNK2001 on detect()/update()/
+// (modules/sil, plan.md item 2) and hit LNK2001 on detect()/update()/
 // detect_free_space(). No .proto file touched - proto_stubs.hpp is a plain
 // C++ header, not a schema.
 #include "isp/frame.pb.h"
