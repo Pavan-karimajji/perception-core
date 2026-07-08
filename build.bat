@@ -10,7 +10,7 @@ set "TARGET=%~2"
 set "PLATFORM=%~3"
 REM PROJECT is accepted (not just tolerated) to keep the same <project> <part>
 REM <platform> [clean] entry-point shape build.py calls every component with -
-REM see modules/functions/build.bat. perception-core has no project-scoped
+REM see modules/df/build.bat. perception-core has no project-scoped
 REM calibration data of its own yet, so it is accepted and otherwise unused.
 set "CLEAN=%~4"
 

@@ -6,7 +6,7 @@
 # This file only answers, for a given project+part already chosen upstream,
 # which of *this component's own* toolchain presets to build with.
 #
-# Mirrors modules/functions/conf/build.yml's shape exactly - see
+# Mirrors modules/df/conf/build.yml's shape exactly - see
 # docs/project_variant_model.md for the full model and rationale.
 #
 # platforms: is consumed by build.py (superproject dispatcher) to resolve
@@ -21,7 +21,7 @@
 #
 # requires:/tool_requires: below ARE mechanically consumed - nested under
 # variants/<project> only (not further per-part - see
-# modules/functions/conf/build.yml for why) - see that same file for the full
+# modules/df/conf/build.yml for why) - see that same file for the full
 # explanation (docs/conan_requires_in_build_yml.md).
 
 variants:
