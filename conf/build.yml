@@ -42,7 +42,7 @@ variants:
       # production:                  # <- added once plan.md's QNX/Orin/TDA4VM
       #   platforms:                 #    item exists; same file, new part key
       #     - build: aarch64_qcc_qnx
-  proj_alpha:
+  cus1:
     requires:
       - protobuf/3.21.12
       - adas-interfaces/1.0.0
