@@ -24,12 +24,15 @@
 # modules/df/conf/build.yml for why) - see that same file for the full
 # explanation (docs/conan_requires_in_build_yml.md).
 #
-# package_kind/layout_kind: plan.md item 10
-# (docs/build_conanfile_commonization_plan.md §2) - package_kind: application
-# because conanfile.py has no build()/package() yet (nothing to compile
-# through Conan) even though settings/CMakeToolchain generation are still
-# needed - data read by the common scripts/build.py/conanfile.py templates
-# so this component's real build shape never becomes a code branch there.
+# layout_kind: plan.md item 10 (docs/build_conanfile_commonization_plan.md
+# §2) - data read by the common scripts/build.py/conanfile.py templates so
+# this component's real build shape never becomes a code branch there.
+# package_kind removed entirely (item 10's own follow-up finding, plan.md,
+# 2026-07-20) - this component's conanfile.py has no build()/package() yet
+# (nothing to compile through Conan, even though settings/CMakeToolchain
+# generation are still needed), but that was never actually read anywhere
+# other than conanfile.py's layout(), which now branches on Conan's own
+# self.package_type ("application") instead.
 #
 # Target keys (standalone:/sil:/gtest: below, §2.1a, revised 2026-07-20):
 # no separate targets: field - every real target is its own explicit key
@@ -37,7 +40,6 @@
 # reuse standalone:'s platforms: list via a YAML anchor/alias since all
 # three build for the same toolchain today.
 
-package_kind: application
 layout_kind: output_folder
 
 variants:
