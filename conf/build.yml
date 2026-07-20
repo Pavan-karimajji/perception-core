@@ -23,6 +23,22 @@
 # variants/<project> only (not further per-part - see
 # modules/df/conf/build.yml for why) - see that same file for the full
 # explanation (docs/conan_requires_in_build_yml.md).
+#
+# package_kind/layout_kind: plan.md item 10
+# (docs/build_conanfile_commonization_plan.md §2) - package_kind: application
+# because conanfile.py has no build()/package() yet (nothing to compile
+# through Conan) even though settings/CMakeToolchain generation are still
+# needed - data read by the common scripts/build.py/conanfile.py templates
+# so this component's real build shape never becomes a code branch there.
+#
+# Target keys (standalone:/sil:/gtest: below, §2.1a, revised 2026-07-20):
+# no separate targets: field - every real target is its own explicit key
+# under variants.<project>, discovered directly by build.py. sil:/gtest:
+# reuse standalone:'s platforms: list via a YAML anchor/alias since all
+# three build for the same toolchain today.
+
+package_kind: application
+layout_kind: output_folder
 
 variants:
   base:
@@ -31,23 +47,31 @@ variants:
       - adas-interfaces/1.0.0
     tool_requires:
       - protobuf/3.21.12
-    sil:
-      platforms:
+    standalone:
+      platforms: &base_platforms
         - build: vs2026
         # - build: vs2026_debug      # <- illustrative only: no debug preset
         #                            #    exists yet in CMakePresets.json
         # - build: aarch64_qcc_qnx   # <- illustrative only: needs its own
         #                            #    build.bat target + toolchain file
         #                            #    first (plan.md item 6)
-      # production:                  # <- added once plan.md's QNX/Orin/TDA4VM
-      #   platforms:                 #    item exists; same file, new part key
-      #     - build: aarch64_qcc_qnx
+    sil:
+      platforms: *base_platforms
+    gtest:
+      platforms: *base_platforms
+    # production:                  # <- added once plan.md's QNX/Orin/TDA4VM
+    #   platforms:                 #    item exists; same file, new part key
+    #     - build: aarch64_qcc_qnx
   cus1:
     requires:
       - protobuf/3.21.12
       - adas-interfaces/1.0.0
     tool_requires:
       - protobuf/3.21.12
-    sil:
-      platforms:
+    standalone:
+      platforms: &cus1_platforms
         - build: vs2026
+    sil:
+      platforms: *cus1_platforms
+    gtest:
+      platforms: *cus1_platforms
