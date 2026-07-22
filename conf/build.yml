@@ -42,6 +42,12 @@
 
 layout_kind: output_folder
 
+# recipe: Conan-package identity read by the byte-identical conanfile.py
+# template (plan.md item 20, docs/conanfile_commonality_plan.md §7.2). An
+# application has no consumable artifact - only its package_type is needed.
+recipe:
+  type: application
+
 variants:
   base:
     requires:
